@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-var port = 3000; // change to env var
+var port = process.env.PORT | 3000;
 
 // start the server
 app.listen(port, function() {
