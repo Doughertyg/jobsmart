@@ -20,7 +20,7 @@ db.once('open', function() {
  * @param {Function} fn callback to be called with error and data returned 
  */
 const allJobs = (fn) => {
-  Job.find({}, callback);
+  Job.find({}, fn);
 }
 
 /**

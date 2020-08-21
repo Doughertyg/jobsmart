@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "init": "node env.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack -d --watch",
+    "start": "nodemon server/index.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "babel-loader": "^8.1.0",
     "file-loader": "^6.0.0",
@@ -19,10 +21,14 @@
     "resolve-url-loader": "^3.1.1",
     "sass": "^1.26.10",
     "sass-loader": "^9.0.3",
-    "webpack": "^4.44.1"
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "axios": "^0.20.0",
+    "classnames": "^2.2.6",
     "express": "^4.17.1",
+    "mongoose": "^5.10.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router": "^5.2.0"
