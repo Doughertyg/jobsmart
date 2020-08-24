@@ -13,16 +13,16 @@ module.exports = {
       {
         test: /\.jsx?/,
         include: SRC_DIR,
-	use: {
-	  loader: 'babel-loader',
-	  options: {
-	    presets: [
+	      use: {
+	        loader: 'babel-loader',
+	        options: {
+            presets: [
               '@babel/preset-env',
               '@babel/preset-react',
               '@babel/preset-typescript',
-	    ]
-	  }
-	}
+            ]
+	        }
+	      }
       },
       {
         test: /\.s[ac]ss$/i,
@@ -31,7 +31,7 @@ module.exports = {
           'style-loader',
           // Translates CSS into CommonJS
           'css-loader',
-	  'resolve-url-loader',
+	        'resolve-url-loader',
           // Compiles Sass to CSS
           'sass-loader',
         ],
@@ -39,8 +39,8 @@ module.exports = {
       {
         test: /\.(gif|svg|jpg|png)$/,
         use: [
-	  "file-loader",
-	],
+	        "file-loader",
+	      ],
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
