@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { fetchJobsURI } from '../server/endpoints';
-import Notification from './components/notification.jsx';
-import Button from './components/button.jsx';
-import JobsTable from './components/jobsTable.jsx';
+import Notification from './components/notification/notification.jsx';
+import Button from './components/button/button.jsx';
+import JobsTable from './components/jobsTable/jobsTable.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class App extends React.Component {
 
   componentDidMount() {
     axios.get(fetchJobsURI)
-      .then(data => {
+      .then(({ data }) => {
         this.setState({
           jobs: data
         })
