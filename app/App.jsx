@@ -6,34 +6,20 @@ import Button from './components/button/button.jsx';
 import JobsTable from './components/jobsTable/jobsTable.jsx';
 
 function App(props) {
-  const [jobs, setJobs] = useState([]);
-  const [error, setError] = useState('');
-
-  function fetchJobsAndSetState() {
-    axios.get(fetchJobsURI)
-      .then(({ data }) => {
-        setJobs(data);
-      })
-      .catch(err => {
-        // set error on state
-        // TODO: error state and message should be separate and explicit
-        setError(err);
-      })
-  }
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
-    fetchJobsAndSetState();
-  }, [])
+    if (notification) setTimeout(() => setNotification(null), 5000);
+  }, notification)
 
-  function updateJobData() {
-    // axios.put...
+  function triggerNotification(type, message) {
+    setNotification({ type, message });
   }
 
   return (
     <div className="app-wrapper">
-      {error && <Notification msg={error} />}
-      <Button>"Refresh"</Button>
-      <JobsTable data={jobs} />
+      {notification && <Notification notification={notification} />}
+      <JobsTable alert={triggerNotification} />
     </div>
   )
 };

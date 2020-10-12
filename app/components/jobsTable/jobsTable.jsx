@@ -1,7 +1,71 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Table from '../table/table.jsx';
+import JobRow from './JobRow.jsx';
+import { fetchJobsURI } from '../server/endpoints';
 
+
+
+/**
+ * NEW jobsTable
+ * 
+ * simple table that iterates over data array and renders rows for each entry
+ * Job element will render row and as many categories/columns as needed
+ * clicking on a row will toggle edit mode which will make the row a modal
+ *   toggle modal background cover on table
+ *   toggle edit mode on row, expand element, make editable, add class
+ * 
+ * jobsTable will encompass entire jobs table app for adding, editing, sorting job apps
+ * 
+ * onMount (useEffect) fetch jobs from backend and set array of jobs (json) to state
+ * render array of jobRow for each job in state, passing in the job
+ *   also pass in fn to update job:
+ *     set loading state,
+ *     update job, 
+ *     set loading state false,
+ *     set success state if success,
+ *     re-fetch jobs if success,
+ *     set error if error
+ *   also pass in fn to set editing state (render editing modal cover)
+ * 
+ * 
+ * 
+ * 
+ */
 const JobsTable = (props) => {
+  const { alert } = props;
+  const [jobs, setJobs] = useState([]);
+
+  function fetchJobsAndSetState() {
+    axios.get(fetchJobsURI)
+      .then(({ data }) => {
+        setJobs(data);
+      })
+      .catch(err => {
+        // set error on state
+        // TODO: error state and message should be separate and explicit
+        alert({ type: 'error', message: err });
+      })
+  }
+
+  useEffect(() => {
+    fetchJobsAndSetState();
+  }, [])
+
+  function updateJobData() {
+    // axios.put...
+  }
+
+  return (
+    <div className="table-wrapper">
+      {/* filter, sort buttons */}
+      {jobs.map(row => {
+        <JobRow job={row} /* pass functions here */ />
+      })}
+      {/* add job button */}
+    </div>
+  )
+
 
 
   /**
@@ -153,7 +217,7 @@ const JobsTable = (props) => {
   ]
 
   return (
-    <Table cols={columns} data={props.data} class="--jobs" />
+    <Table cols={columns} colGroups={columnGroups} data={props.data} class="--jobs" />
   )
 }
 
