@@ -2,39 +2,54 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Table from '../table/table.jsx';
 import JobRow from './JobRow.jsx';
-import { fetchJobsURI } from '../server/endpoints';
+import { fetchJobsURI } from '../../../server/endpoints.js';
 
 
 
 /**
- * NEW jobsTable
- * 
- * simple table that iterates over data array and renders rows for each entry
- * Job element will render row and as many categories/columns as needed
+ * JobsTable
+ * fetches and populates jobs on state as an array of job objects
+ * iterates over jobs array to render a JobRow for each
  * clicking on a row will toggle edit mode which will make the row a modal
- *   toggle modal background cover on table
- *   toggle edit mode on row, expand element, make editable, add class
+ *   toggle modal background cover on table and 'editing' state
+ *   pass editing prop to row, expand element, make editable, add class
  * 
- * jobsTable will encompass entire jobs table app for adding, editing, sorting job apps
+ * when editing a job row, user changes state on row and on 'save' passes state
+ *   to save fn passed down from JobsTable
  * 
- * onMount (useEffect) fetch jobs from backend and set array of jobs (json) to state
- * render array of jobRow for each job in state, passing in the job
- *   also pass in fn to update job:
+ * Each row receives:
+ *   fn to update job:
  *     set loading state,
  *     update job, 
  *     set loading state false,
  *     set success state if success,
  *     re-fetch jobs if success,
  *     set error if error
- *   also pass in fn to set editing state (render editing modal cover)
+ *   pass in fn to set editing state
  * 
+ * shape of job json:
+ * 
+ * {
+ *    company:
+ *    title:
+ *    link:
+ *    starred:
+ *    active:
+ *    stages: [
+ *      {
+ *        stage: 'outreach' || 'application' || ...
+ *        data: { contact, via, initial, last, referall }
+ *      }
+ *    ]
+ * }
  * 
  * 
  * 
  */
 const JobsTable = (props) => {
   const { alert } = props;
-  const [jobs, setJobs] = useState([]);
+  const [ jobs, setJobs ] = useState([]);
+  const [ editing, setEditing ] = useState(null);
 
   function fetchJobsAndSetState() {
     axios.get(fetchJobsURI)
@@ -59,8 +74,8 @@ const JobsTable = (props) => {
   return (
     <div className="table-wrapper">
       {/* filter, sort buttons */}
-      {jobs.map(row => {
-        <JobRow job={row} /* pass functions here */ />
+      {jobs.map((row, index) => {
+        <JobRow key={index} editing={index === editing} setEditing={setEditing} job={row} /* pass functions here */ />
       })}
       {/* add job button */}
     </div>

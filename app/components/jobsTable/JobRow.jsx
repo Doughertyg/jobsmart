@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import JobStage from './JobStage';
+import JobStage from './JobStage.jsx';
 
 const domainRegex = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/i;
 
