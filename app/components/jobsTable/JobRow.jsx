@@ -29,7 +29,7 @@ function formatLink(link) {
  * 
  * @param {object} props props object received 
  */
-const JobRow = ({ job }) => {
+const JobRow = (props) => {
   const { job: { company, title, link, starred, active, stages } } = props;
   const jobRowClass = active ? "job-row__wrapper" : "job-row__wrapper --inactive";
   const starClass = starred ? 'job-row__star --starred' : 'job-row__star';
