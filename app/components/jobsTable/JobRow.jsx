@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import JobStage from './JobStage';
 
 const domainRegex = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/i;
 
@@ -29,33 +30,52 @@ function formatLink(link) {
  * 
  * @param {object} props props object received 
  */
-const JobRow = (props) => {
-  const { job: { company, title, link, starred, active, stages } } = props;
-  const jobRowClass = active ? "job-row__wrapper" : "job-row__wrapper --inactive";
+const JobRow = ({ job, setEditing, editing, key }) => {
+  const { company, title, link, starred, active, stages } = job;
+
+  /*
+  shape of job object:
+   job: { company, title, link, starred, active, stages } } = props;
+
+   */
+  const [ jobState, setJobState ] = useState(job);
+  const jobRowClass = `job-row__wrapper ${active ? '' : '--inactive'} ${editing ? '--editing' : ''}`;
   const starClass = starred ? 'job-row__star --starred' : 'job-row__star';
+
+  function handleStageChange(idx, value) {
+    const newJob = job;
+    newJob.stages[idx].value = value;
+    setJobState(newJob);
+  }
+
+  function handleJobChange(val) {
+    const newJob = {...job, ...val};
+    setJobState(newJob);
+  }
 
   return (
     <div className={jobRowClass}>
       <div className="job-row__basic-info">
-        <span className={starClass}>&#9733;</span>
-        <p>{company}</p>
-        <p>{title}</p>
-        <a href={link} className="job-row__link">{formatLink(link)}</a>
+        <span className={starClass} onClick={() => handleJobChange({ starred: !starred })}>&#9733;</span>
+        {editing ?
+          <>
+            <input onChange={e => handleJobChange({ company: e.target.value })}>{company}</input>
+            <input onChange={e => handleJobChange({ title: e.target.value })}>{title}</input>
+            <input onChange={e => handleJobChange({ link: e.target.value })}>{formatLink(link)}</input>
+          </> :
+          <>
+            <p>{company}</p>
+            <p>{title}</p>
+            <a href={link} className="job-row__link">{formatLink(link)}</a>
+          </>}
       </div>
-      {
-        stages.map(stage => {
-          switch (stage.name) {
-            case 'outreach':
-              return (
-                <div />
-              );
-            case 'application':
-              return (
-                <div />
-              );
-          }
-        })
-      }
+      <div className="job-row__stages" onClick={() => setEditing(key)}>
+        {
+          stages.map((stage, index) => {
+            return <JobStage index={index} handleChange={handleStageChange} />
+          })
+        }
+      </div>
     </div>
   )
 }
