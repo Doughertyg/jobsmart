@@ -24,32 +24,23 @@ function formatLink(link) {
  * JobRow renders a job using the job prop
  *  job prop is an object of this shape:
  *    { company: companyName, title: jobTitle, link: jobLink, starred: bool, active: bool, stages: []}
- *       stages is an array of stages with this shape: { name: stageName, data: [{field: data}]}
- * 
- *  
- * 
+ *       stages is an array of stages with this shape: { title: stageName, data: [{field: data}]}
  * @param {object} props props object received 
  */
 const JobRow = ({ job, setEditing, editing, key }) => {
-  const { company, title, link, starred, active, stages } = job;
-
-  /*
-  shape of job object:
-   job: { company, title, link, starred, active, stages } } = props;
-
-   */
   const [ jobState, setJobState ] = useState(job);
+  const { company, title, link, starred, active, stages } = jobState;
   const jobRowClass = `job-row__wrapper ${active ? '' : '--inactive'} ${editing ? '--editing' : ''}`;
   const starClass = starred ? 'job-row__star --starred' : 'job-row__star';
 
   function handleStageChange(idx, value) {
-    const newJob = job;
+    const newJob = jobState;
     newJob.stages[idx].value = value;
     setJobState(newJob);
   }
 
   function handleJobChange(val) {
-    const newJob = {...job, ...val};
+    const newJob = {...jobState, ...val};
     setJobState(newJob);
   }
 
@@ -72,7 +63,7 @@ const JobRow = ({ job, setEditing, editing, key }) => {
       <div className="job-row__stages" onClick={() => setEditing(key)}>
         {
           stages.map((stage, index) => {
-            return <JobStage index={index} handleChange={handleStageChange} />
+            return <JobStage key={`job-stage__${index}`} index={index} handleChange={handleStageChange} />
           })
         }
       </div>

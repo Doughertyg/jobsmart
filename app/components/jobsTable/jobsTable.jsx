@@ -46,8 +46,7 @@ import { fetchJobsURI } from '../../../server/endpoints.js';
  * 
  * 
  */
-const JobsTable = (props) => {
-  const { alert } = props;
+const JobsTable = ({ alert }) => {
   const [ jobs, setJobs ] = useState([]);
   const [ editing, setEditing ] = useState(null);
 

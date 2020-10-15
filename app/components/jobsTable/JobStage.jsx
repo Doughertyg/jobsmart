@@ -2,10 +2,12 @@ import React from 'react';
 import { call } from 'file-loader';
 
 /**
- * Reach Out job stage component
- * renders info and fields for the reach out stage
+ * Job stage component
+ * renders info and fields for for any stage based on passed in stage data
  * props:
- *   stage: "outreach" || "application" || etc...
+ *  stage:
+ *  {
+ *   title: "outreach" || "application" || etc...
  *   data: [
  *     {
  *       title: 'who' || 'via' || 'initial' || 'date' || etc...,
@@ -13,56 +15,42 @@ import { call } from 'file-loader';
  *       value: value
  *     },
  *   ]
+ *  },
+ *  handleChange: fn to update the job on state in parent for controlled inputs
+ *  index: index of the stage in the job's stages array
  */
 function JobStage(props) {
-  /*
-    ______________________________________
-  :`_____________reach out________________`;
-  | who | via | initial | last | referral? |
-  |     |     |         |      |           |
-  ':,____________________________________,:'
-
-  shape of reachout stage data:
-
-  data: {
-    contact: contact,
-    via: contacted via,
-    initial: initial contact,
-    last: last contacted,
-    referral: referral received
-  }
-  
-  
-  
-  */
-
-  const { handleChange, index } = props;
-
-  const { data, stage } = props;
+  const { handleChange, index, stage: { title, data } } = props;
 
   return (
     <div className="stage__wrapper">
       <div className="stage__header">
-        <div className="stage__header-main">{stage}</div>
+        <div className="stage__header-main">{title}</div>
         <div className="stage__header-sub">
-          {data.map(cols => <spane>{cols.title}</spane>)}
+          {data.map((cols, idx) => <span key={`stage-col__${idx}`}>{cols.title}</span>)}
         </div>
       </div>
       <div className="stage__data">
-        {data.map(cell => {
+        {data.map((cell, idx) => {
           switch (cell.type) {
             case 'text':
             case 'date':
-              return <input type={cell.type} onChange={e => handleChange(index, e.target.value)}>{cell.value}</input>;
+              return (
+                <input key={`stage-cell__${idx}`} type={cell.type} onChange={e => handleChange(index, e.target.value)}>
+                  {cell.value}
+                </input>);
             case 'bool':
               return (
-                <select value={cell.value} onChange={e => handleChange(index, e.target.value)}>{contact}
+                <select key={`stage-cell__${idx}`} value={cell.value} onChange={e => handleChange(index, e.target.value)}>
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </select>
               );
             default:
-              return <input type="text" onChange={e => handleChange(index, e.target.value)}>{cell.value}</input>;
+              return (
+                <input key={`stage-cell__${idx}`} type="text" onChange={e => handleChange(index, e.target.value)}>
+                  {cell.value}
+                </input>);
           }
         })}
       </div>
