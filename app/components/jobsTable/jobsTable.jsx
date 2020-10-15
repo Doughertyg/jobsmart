@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Table from '../table/table.jsx';
 import JobRow from './JobRow.jsx';
 import { fetchJobsURI } from '../../../server/endpoints.js';
 
@@ -230,9 +229,9 @@ const JobsTable = ({ alert }) => {
     }
   ]
 
-  return (
-    <Table cols={columns} colGroups={columnGroups} data={props.data} class="--jobs" />
-  )
+  // return (
+  //   <Table cols={columns} colGroups={columnGroups} data={props.data} class="--jobs" />
+  // )
 }
 
 export default JobsTable;
