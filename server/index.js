@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 const { fetchJobsURI } = require('./endpoints');
-const { allJobs } = require('../db');
+const { allJobs } = require('../db/index');
 var port = process.env.PORT | 3000;
 
 // start the server
