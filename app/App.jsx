@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { fetchJobsURI } from '../server/endpoints';
 import Notification from './components/notification/notification.jsx';
 import Button from './components/button/button.jsx';
 import JobsTable from './components/jobsTable/jobsTable.jsx';
+
+import './styles/reset.scss';
+import './styles/main.scss';
 
 function App(props) {
   const [notification, setNotification] = useState(null);

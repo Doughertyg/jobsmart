@@ -11,13 +11,15 @@ const domainRegex = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-
 function formatLink(link) {
   let cache = {};
 
-  return (function (link) {
-    if (!cache[link]) {
-      cache[link] = link.match(domainRegex);
-    }
+  // return (function (link) {
+  //   if (!cache[link]) {
+  //     cache[link] = link.match(domainRegex);
+  //   }
 
-    return cache[link];
-  })(link);
+  //   return cache[link];
+  // })(link);
+
+  return link.match(domainRegex);
 }
 
 /**
@@ -27,10 +29,10 @@ function formatLink(link) {
  *       stages is an array of stages with this shape: { title: stageName, data: [{field: data}]}
  * @param {object} props props object received 
  */
-const JobRow = ({ job, setEditing, editing, key }) => {
+const JobRow = ({ job, setEditing, editing, idx }) => {
   const [ jobState, setJobState ] = useState(job);
   const { company, title, link, starred, active, stages } = jobState;
-  const jobRowClass = `job-row__wrapper ${active ? '' : '--inactive'} ${editing ? '--editing' : ''}`;
+  const jobRowClass = `job-row ${active ? '' : '--inactive'} ${editing ? '--editing' : ''}`;
   const starClass = starred ? 'job-row__star --starred' : 'job-row__star';
 
   function handleStageChange(idx, value) {
@@ -45,29 +47,33 @@ const JobRow = ({ job, setEditing, editing, key }) => {
   }
 
   return (
-    <div className={jobRowClass}>
-      <div className="job-row__basic-info">
-        <span className={starClass} onClick={() => handleJobChange({ starred: !starred })}>&#9733;</span>
-        {editing ?
-          <>
-            <input onChange={e => handleJobChange({ company: e.target.value })}>{company}</input>
-            <input onChange={e => handleJobChange({ title: e.target.value })}>{title}</input>
-            <input onChange={e => handleJobChange({ link: e.target.value })}>{formatLink(link)}</input>
-          </> :
-          <>
-            <p>{company}</p>
-            <p>{title}</p>
-            <a href={link} className="job-row__link">{formatLink(link)}</a>
-          </>}
-      </div>
-      <div className="job-row__stages" onClick={() => setEditing(key)}>
-        {
-          stages.map((stage, index) => {
-            return <JobStage key={`job-stage__${index}`} index={index} handleChange={handleStageChange} />
-          })
-        }
+    <div className="job-row__wrapper">
+      <span className={starClass} onClick={() => handleJobChange({ starred: !starred })}>&#9733;</span>
+      <div className={jobRowClass}>
+        <div className="job-row__basic-info">
+
+          {editing ?
+            <>
+              <input onChange={e => handleJobChange({ company: e.target.value })} value={company} />
+              <input onChange={e => handleJobChange({ title: e.target.value })} value={title} />
+              <input onChange={e => handleJobChange({ link: e.target.value })} value={formatLink(link)} />
+            </> :
+            <>
+              <p>{company}</p>
+              <p>{title}</p>
+              <a href={link} className="job-row__link">{formatLink(link)}</a>
+            </>}
+        </div>
+        <div className="job-row__stages" onClick={() => setEditing(idx)}>
+          {
+            stages.map((stage, index) => {
+              return <JobStage stage={stage} key={`job-stage__${index}`} index={index} handleChange={handleStageChange} />
+            })
+          }
+        </div>
       </div>
     </div>
+    
   )
 }
 
