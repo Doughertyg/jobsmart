@@ -1,19 +1,16 @@
 const mongoose = require('mongoose');
-const Job = require('./models/jobs');
-const URI = process.env.DB_URI || 'mongodb://localhost/jobsmart';
+const { Job } = require('./models');
+const URI = process.env.DB_URI || 'mongodb://localhost/jobsmart'; // TODO: refactor to use dot.env
 const user = process.env.DB_USER || 'dev';
 const pass = process.env.DB_PASS || 'password';
-mongoose.connect(URI, { user, pass });
+
+mongoose.connect(URI, { user, pass, useNewUrlParser: true, useUnifiedTopology: true })
+  .catch(err => console.log('error connecting to the database: ', err));
 
 const db = mongoose.connection;
 
-db.on('error', function() {
-  console.error.bind(console, 'connection error:');
-});
-
-db.once('open', function() {
-  console.error.bind(console, 'successfully connected to database');
-});
+db.on('error', (err) => console.log('connection error: ', err));
+db.once('open', () => console.log('successfully connected to database'));
 
 /**
  * function for finding all job applications saved in the database
