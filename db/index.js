@@ -24,21 +24,31 @@ const allJobs = (fn) => {
  * function for deleting a job where id equals jobId from the database
  * @param {number} jobId id of job app to delete 
  */
-const removeJob = (jobId) => {
-	Job.findOneAndDelete({ id: jobId }, callback);
+const deleteJob = (jobId, fn) => {
+	Job.findOneAndDelete({ id: jobId }, fn);
 }
 
 /**
  * function that saves a new job to the database
  * @param {Object} jobToSave new job object to save 
  */
-const newJob = (jobToSave) => {
+const createJob = (jobToSave, fn) => {
   const job = new Job(jobToSave);
 
-  job.save(callback);
+  job.save(fn);
+}
+
+/**
+ * function for updating a job in the database
+ * @param
+ */
+const updateJob = (jobId, newJob, fn) => {
+
+  job.findOneAndUpdate({ id: jobId }, newJob, fn);
 }
 
 exports.allJobs = allJobs;
-exports.removeJob = removeJob;
-exports.newJob = newJob;
+exports.createJob = createJob;
+exports.updateJob = updateJob;
+exports.deleteJob = deleteJob;
 exports.db = db;
