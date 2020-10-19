@@ -1,0 +1,19 @@
+@import './variables.scss';
+
+@mixin row-theme {
+  display: flex;
+  align-items: center;
+}
+
+@mixin wide-text-center {
+  width: 100%;
+  text-align: center;
+}
+
+@mixin box-shadow {
+  box-shadow: 0 0 5px 0 $box-shadow-color;
+}
+
+@mixin box-shadow-hover {
+  box-shadow: 0 0 12px 0 $box-shadow-color-hov;
+}

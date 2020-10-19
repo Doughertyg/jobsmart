@@ -1,0 +1,23 @@
+@import './variables.scss';
+
+body {
+  margin: 0;
+
+  input, select {
+    border: none;
+    box-sizing: border-box;
+    padding: 3px;
+    text-overflow: ellipsis;
+    text-align: center;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      color: $base-light-blue;
+    }
+  }
+
+}
