@@ -3,6 +3,7 @@ import axios from 'axios';
 import JobRow from './JobRow.jsx';
 import { fetchJobsURI } from '../../../server/endpoints.js';
 
+import './jobsTable.scss';
 
 
 /**
@@ -37,7 +38,7 @@ import { fetchJobsURI } from '../../../server/endpoints.js';
  *    stages: [
  *      {
  *        stage: 'outreach' || 'application' || ...
- *        data: { contact, via, initial, last, referall }
+ *        data: { title, type, value }
  *      }
  *    ]
  * }
@@ -52,6 +53,7 @@ const JobsTable = ({ alert }) => {
   function fetchJobsAndSetState() {
     axios.get(fetchJobsURI)
       .then(({ data }) => {
+        console.log('data:', data);
         setJobs(data);
       })
       .catch(err => {
@@ -71,11 +73,9 @@ const JobsTable = ({ alert }) => {
 
   return (
     <div className="table-wrapper">
-      {/* filter, sort buttons */}
-      {jobs.map((row, index) => {
-        <JobRow key={index} editing={index === editing} setEditing={setEditing} job={row} /* pass functions here */ />
-      })}
-      {/* add job button */}
+      {jobs.map((row, index) => (
+        <JobRow idx={index} key={`job-table__row${index}`} editing={index === editing} setEditing={setEditing} job={row} /* pass functions here */ />
+      ))}
     </div>
   )
 

@@ -20,12 +20,12 @@ import { call } from 'file-loader';
  *  index: index of the stage in the job's stages array
  */
 function JobStage(props) {
-  const { handleChange, index, stage: { title, data } } = props;
+  const { handleChange, index, stage: { stage, data } } = props;
 
   return (
     <div className="stage__wrapper">
       <div className="stage__header">
-        <div className="stage__header-main">{title}</div>
+        <div className="stage__header-main">{stage}</div>
         <div className="stage__header-sub">
           {data.map((cols, idx) => <span key={`stage-col__${idx}`}>{cols.title}</span>)}
         </div>
@@ -36,9 +36,7 @@ function JobStage(props) {
             case 'text':
             case 'date':
               return (
-                <input key={`stage-cell__${idx}`} type={cell.type} onChange={e => handleChange(index, e.target.value)}>
-                  {cell.value}
-                </input>);
+                <input key={`stage-cell__${idx}`} value={cell.value} type={cell.type} onChange={e => handleChange(index, e.target.value)} />);
             case 'bool':
               return (
                 <select key={`stage-cell__${idx}`} value={cell.value} onChange={e => handleChange(index, e.target.value)}>
@@ -48,9 +46,7 @@ function JobStage(props) {
               );
             default:
               return (
-                <input key={`stage-cell__${idx}`} type="text" onChange={e => handleChange(index, e.target.value)}>
-                  {cell.value}
-                </input>);
+                <input key={`stage-cell__${idx}`} value={cell.value} type="text" onChange={e => handleChange(index, e.target.value)} />);
           }
         })}
       </div>
