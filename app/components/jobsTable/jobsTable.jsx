@@ -51,9 +51,8 @@ const JobsTable = ({ alert }) => {
   const [ editing, setEditing ] = useState(null);
 
   function fetchJobsAndSetState() {
-    axios.get(fetchJobsURI)
+    axios.get(`/api/v1${fetchJobsURI}`)
       .then(({ data }) => {
-        console.log('data:', data);
         setJobs(data);
       })
       .catch(err => {
@@ -74,7 +73,7 @@ const JobsTable = ({ alert }) => {
   return (
     <div className="table-wrapper">
       {jobs.map((row, index) => (
-        <JobRow idx={index} key={`job-table__row${index}`} editing={index === editing} setEditing={setEditing} job={row} /* pass functions here */ />
+        <JobRow idx={index} key={`job-table__row${index}`} refresh={fetchJobsAndSetState} editing={index === editing} setEditing={setEditing} job={row} alert={alert} /* pass functions here */ />
       ))}
     </div>
   )

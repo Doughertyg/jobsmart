@@ -7,7 +7,7 @@ import { call } from 'file-loader';
  * props:
  *  stage:
  *  {
- *   title: "outreach" || "application" || etc...
+ *   stage: "outreach" || "application" || etc...
  *   data: [
  *     {
  *       title: 'who' || 'via' || 'initial' || 'date' || etc...,
@@ -36,17 +36,17 @@ function JobStage(props) {
             case 'text':
             case 'date':
               return (
-                <input key={`stage-cell__${idx}`} value={cell.value} type={cell.type} onChange={e => handleChange(index, e.target.value)} />);
+                <input key={`stage-cell__${idx}`} value={cell.value} type={cell.type} onChange={e => handleChange(index, idx, e.target.value)} />);
             case 'bool':
               return (
-                <select key={`stage-cell__${idx}`} value={cell.value} onChange={e => handleChange(index, e.target.value)}>
+                <select key={`stage-cell__${idx}`} value={cell.value} onChange={e => handleChange(index, idx, e.target.value)}>
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                 </select>
               );
             default:
               return (
-                <input key={`stage-cell__${idx}`} value={cell.value} type="text" onChange={e => handleChange(index, e.target.value)} />);
+                <input key={`stage-cell__${idx}`} value={cell.value} type="text" onChange={e => handleChange(index, idx, e.target.value)} />);
           }
         })}
       </div>
