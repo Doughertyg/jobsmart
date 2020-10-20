@@ -44,7 +44,7 @@ const createJob = (jobToSave, fn) => {
  */
 const updateJob = (jobId, newJob, fn) => {
 
-  job.findOneAndUpdate({ id: jobId }, newJob, fn);
+  Job.findOneAndUpdate({ id: jobId }, newJob, fn);
 }
 
 exports.allJobs = allJobs;

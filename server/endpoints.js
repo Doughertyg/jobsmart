@@ -1,19 +1,19 @@
 /**
  * GET all jobs
  */
-exports.fetchJobsURI = '/api/jobs';
+exports.fetchJobsURI = '/jobs';
 
 /**
  * POST to create new job
  */
-exports.createJobURI = '/api/jobs';
+exports.createJobURI = '/jobs';
 
 /**
  * PUT to update job
  */
-exports.updateJobURI = '/api/jobs/:jobId';
+exports.updateJobURI = '/jobs/:jobId';
 
 /**
  * DELETE to create job
  */
-exports.deleteJobURI = '/api/jobs/:jobId'
+exports.deleteJobURI = '/jobs/:jobId'
