@@ -42,7 +42,7 @@ const JobRow = ({ alert, job, setEditing, editing, idx, refresh }) => {
     /* delete job */
   }
 
-  function fetchJob(fn) {    
+  function fetchJob(fn) {
     axios.get(`/api/v1/jobs/${_id}`)
       .then(({ data }) => {
         setJobState(data[0]);

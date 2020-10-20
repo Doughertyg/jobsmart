@@ -8,6 +8,7 @@ const {
 } = require('../../endpoints');
 const {
   allJobs,
+  aJob,
   createJob,
   updateJob,
   deleteJob
@@ -18,6 +19,21 @@ router.get(fetchJobsURI, (req, res) => {
   allJobs((err, data) => {
     if (err) {
       res.status(500).send({ error: 'could not fetch jobs from the db' });
+      return;
+    }
+
+    res.status(200).send(data);
+  })
+})
+
+// route for fetching a single job from db
+router.get(fetchJobsURI + '/:jobId', (req, res) => {
+  const id = req.params.jobId;
+  console.log('in server get job /api/v1/jobs/:jobId', id);
+
+  aJob(id, (err, data) => {
+    if (err) {
+      res.status(500).send({ error: 'could not fetch job from the db' });
       return;
     }
 
@@ -44,13 +60,13 @@ router.put('/jobs/:jobId', (req, res) => {
   const jobId = req.params.jobId;
   const updatedJob = req.body.job;
 
-  updateJob(jobId, updatedJob, err => {
+  updateJob(jobId, updatedJob, (err, data) => {
     if (err) {
       res.status(500).send({ error: 'unable to update job on db' });
       return;
     }
 
-    res.status(200).send('updated job successfully!');
+    res.status(200).send(data);
   })
 })
 

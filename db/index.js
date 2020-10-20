@@ -21,6 +21,14 @@ const allJobs = (fn) => {
 }
 
 /**
+ * function for finding a single job applications saved in the database
+ * @param {Function} fn callback to be called with error and data returned 
+ */
+const aJob = (jobId, fn) => {
+  Job.find({ _id: jobId }, fn);
+}
+
+/**
  * function for deleting a job where id equals jobId from the database
  * @param {number} jobId id of job app to delete 
  */
@@ -43,10 +51,11 @@ const createJob = (jobToSave, fn) => {
  * @param
  */
 const updateJob = (jobId, newJob, fn) => {
-  Job.findOneAndUpdate({ _id: jobId }, newJob, fn);
+  Job.findOneAndUpdate({ _id: jobId }, newJob, { new: true }, fn);
 }
 
 exports.allJobs = allJobs;
+exports.aJob = aJob;
 exports.createJob = createJob;
 exports.updateJob = updateJob;
 exports.deleteJob = deleteJob;
