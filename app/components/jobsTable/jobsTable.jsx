@@ -66,16 +66,19 @@ const JobsTable = ({ alert }) => {
     fetchJobsAndSetState();
   }, [])
 
-  function updateJobData() {
-    // axios.put...
-  }
-
   return (
     <>
       {editing && <div className="modal-bg" />}
         <div className="table-wrapper">
           {jobs.map((row, index) => (
-            <JobRow idx={index} key={`job-table__row${index}`} refresh={fetchJobsAndSetState} editing={index === editing} setEditing={setEditing} job={row} alert={alert} /* pass functions here */ />
+            <JobRow
+              idx={index}
+              key={`job-table__row${index}`}
+              refresh={fetchJobsAndSetState}
+              editing={index === editing}
+              setEditing={setEditing}
+              job={row}
+              alert={alert}/>
           ))}
         </div>
     </>

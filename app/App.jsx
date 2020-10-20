@@ -11,7 +11,7 @@ function App(props) {
 
   useEffect(() => {
     if (notification) setTimeout(() => setNotification(null), 5000);
-  }, notification)
+  }, [ notification ])
 
   function triggerNotification(type, message) {
     setNotification({ type, message });

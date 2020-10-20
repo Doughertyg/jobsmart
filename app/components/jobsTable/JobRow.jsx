@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import JobStage from './JobStage.jsx';
 import Button from '../button/button.jsx';
@@ -32,9 +32,9 @@ function formatLink(link) {
  * @param {object} props props object received 
  */
 const JobRow = ({ alert, job, setEditing, editing, idx, refresh }) => {
-  const [ jobState, setJobState ] = useState(job);
-  const [ updated, setUpdated ] = useState('');
-  const { company, title, link, starred, active, stages } = jobState;
+  const jobPropCopy = JSON.parse(JSON.stringify(job));
+  const [ jobState, setJobState ] = useState(jobPropCopy);
+  const { _id, company, title, link, starred, active, stages } = jobState;
   const jobRowClass = `job-row ${active ? '' : '--inactive'} ${editing ? '--modal --editing' : ''}`;
   const starClass = starred ? 'job-row__star --starred' : 'job-row__star';
 
@@ -42,23 +42,40 @@ const JobRow = ({ alert, job, setEditing, editing, idx, refresh }) => {
     /* delete job */
   }
 
+  function fetchJob(fn) {    
+    axios.get(`/api/v1/jobs/${_id}`)
+      .then(({ data }) => {
+        setJobState(data[0]);
+        fn();
+      })
+      .catch(err => {
+        fn();
+        // set error on state
+        // TODO: error state and message should be separate and explicit
+        alert({ type: 'error', message: err });
+      })
+  }
+
   function createJob() {
     /* create job */
   }
 
-  function updateJob() {
-
+  function updateJob(fn) {
     axios.put(`/api/v1/jobs/${jobState._id}`, { job: jobState })
-      .then(d => refresh())
-      .catch(err => alert({ type: 'error', message: err }));
+      .then(({ data }) => {
+        setJobState(data);
+        fn();
+      })
+      .catch(err => {
+
+        alert({ type: 'error', message: err })
+      });
   }
 
   function handleStageChange(stageIdx, colIdx, value) {
-    const newJob = jobState;
+    const newJob = {...jobState};
 
     newJob.stages[stageIdx].data[colIdx].value = value;
-    // this is hacky & causes a re-render of row but needed to reflect changes since state is deeply nested
-    setUpdated(Date.now()); 
     setJobState(newJob);
   }
 
@@ -94,7 +111,12 @@ const JobRow = ({ alert, job, setEditing, editing, idx, refresh }) => {
           </div>
         </div>
       </div>
-      {editing && <Button className="--modal" onClick={updateJob}>SAVE</Button>}
+      {editing && (
+        <>
+          <Button classes="--modal" onClick={() => fetchJob(() => setEditing(null))}>X</Button>
+          <Button classes="--modal" onClick={() => updateJob(() => setEditing(null))}>SAVE</Button>
+        </>
+      )}
     </>
   )
 }
