@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import JobStage from './JobStage.jsx';
+import Button from '../button/button.jsx';
 
 const domainRegex = /(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]/i;
 
@@ -27,13 +28,14 @@ function formatLink(link) {
  * JobRow renders a job using the job prop
  *  job prop is an object of this shape:
  *    { company: companyName, title: jobTitle, link: jobLink, starred: bool, active: bool, stages: []}
- *       stages is an array of stages with this shape: { title: stageName, data: [{field: data}]}
+ *       stages is an array of stages with this shape: { stage: stageName, data: [{title: title, type: type, value: value}]}
  * @param {object} props props object received 
  */
 const JobRow = ({ alert, job, setEditing, editing, idx, refresh }) => {
   const [ jobState, setJobState ] = useState(job);
+  const [ updated, setUpdated ] = useState('');
   const { company, title, link, starred, active, stages } = jobState;
-  const jobRowClass = `job-row ${active ? '' : '--inactive'} ${editing ? '--editing' : ''}`;
+  const jobRowClass = `job-row ${active ? '' : '--inactive'} ${editing ? '--modal --editing' : ''}`;
   const starClass = starred ? 'job-row__star --starred' : 'job-row__star';
 
   function deleteJob() {
@@ -45,18 +47,18 @@ const JobRow = ({ alert, job, setEditing, editing, idx, refresh }) => {
   }
 
   function updateJob() {
-    const newJob = jobState;
 
     axios.put(`/api/v1/jobs/${jobState._id}`, { job: jobState })
       .then(d => refresh())
       .catch(err => alert({ type: 'error', message: err }));
   }
 
-  function handleStageChange(idx, dataIdx, value) {
+  function handleStageChange(stageIdx, colIdx, value) {
     const newJob = jobState;
-    console.log('newJob: ', newJob);
-    newJob.stages[idx].data[dataIdx].value = value;
-    console.log('new newJob: ', newJob, 'idx: ', idx, 'value: ', value);
+
+    newJob.stages[stageIdx].data[colIdx].value = value;
+    // this is hacky & causes a re-render of row but needed to reflect changes since state is deeply nested
+    setUpdated(Date.now()); 
     setJobState(newJob);
   }
 
@@ -71,7 +73,6 @@ const JobRow = ({ alert, job, setEditing, editing, idx, refresh }) => {
         <span className={starClass} onClick={() => handleJobChange({ starred: !starred })}>&#9733;</span>
         <div className={jobRowClass}>
           <div className="job-row__basic-info">
-
             {editing ?
               <>
                 <input onChange={e => handleJobChange({ company: e.target.value })} value={company} />
@@ -93,7 +94,7 @@ const JobRow = ({ alert, job, setEditing, editing, idx, refresh }) => {
           </div>
         </div>
       </div>
-      {editing && <div onClick={updateJob}>SAVE</div>}
+      {editing && <Button className="--modal" onClick={updateJob}>SAVE</Button>}
     </>
   )
 }
