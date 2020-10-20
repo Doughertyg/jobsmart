@@ -25,7 +25,7 @@ const allJobs = (fn) => {
  * @param {number} jobId id of job app to delete 
  */
 const deleteJob = (jobId, fn) => {
-	Job.findOneAndDelete({ id: jobId }, fn);
+	Job.findOneAndDelete({ _id: jobId }, fn);
 }
 
 /**
@@ -43,8 +43,7 @@ const createJob = (jobToSave, fn) => {
  * @param
  */
 const updateJob = (jobId, newJob, fn) => {
-
-  Job.findOneAndUpdate({ id: jobId }, newJob, fn);
+  Job.findOneAndUpdate({ _id: jobId }, newJob, fn);
 }
 
 exports.allJobs = allJobs;
