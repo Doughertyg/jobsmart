@@ -3,17 +3,29 @@ $base-light-green: #1fff79;
 $base-light-blue: #1fcbff;
 $bg-lighter-blue: #ade8fd;
 $bg-lightest-blue: #baedff;
+$bg-light-grey-blue: #609ad2;
+$bg-grey-blue: #5a92c7;
+$bg-light-grey-grey-blue: #89add0;
+$bg-grey-grey-blue: #81a5c7;
+
+$bg-light: #98b1c7;
+$bg: #8aa2b9;
 
 $border-light-grey: #e8e8e8;
 $border-grey: #737d86;
 $border-white: #fcfdff;
 $border-white-blue: #f1f8ff;
 
-/* function variables */
-$stage-cell-height: 55px;
-$hue-shift-factor: 12;
+/* functional variables */
 $border-radius-med: 15px;
 $border-radius-sm: 9px;
+// modal vars
+$modal-bg-opacity: 0.7;
+$modal-bg-zindex: 1000;
+$modal-content-zindex: 10000;
+// job stage vars 
+$stage-cell-height: 55px;
+$hue-shift-factor: 12;
 
 $box-shadow-color: rgba(0, 0, 0, 0.1);
 $box-shadow-color-hov: rgba(0, 0, 0, 0.2);

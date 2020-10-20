@@ -20,4 +20,17 @@ body {
     }
   }
 
+  .modal-bg {
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    opacity: $modal-bg-opacity;
+    z-index: $modal-bg-zindex;
+    position: absolute;
+  }
+
+  .--modal {
+    z-index: $modal-content-zindex;
+  }
+
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import { call } from 'file-loader';
 
 /**
  * Job stage component
