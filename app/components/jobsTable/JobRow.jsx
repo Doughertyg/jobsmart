@@ -99,7 +99,7 @@ const JobRow = ({ alert, job, setEditing, editing, idx, refresh }) => {
               <>
                 <p>{company}</p>
                 <p>{title}</p>
-                <a href={link} className="job-row__link">{formatLink(link)}</a>
+                <a href={link} target="_blank" className="job-row__link">{formatLink(link)}</a>
               </>}
           </div>
           <div className="job-row__stages" onClick={() => setEditing(idx)}>

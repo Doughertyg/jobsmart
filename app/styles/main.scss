@@ -59,4 +59,18 @@ body {
     }
   }
 
+  .header-bar {
+    height: 36px;
+    padding: 0 15px;
+    background-color: $dark-blue-header;
+    border-bottom: 2px solid $darker-blue-header;
+    display: flex;
+    align-items: center;
+    color: $border-light-grey;
+    font-weight: 600;
+    font-size: 24px;
+    font-family: sans-serif;
+    font-variant: all-petite-caps;
+  }
+
 }
