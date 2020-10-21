@@ -148,4 +148,15 @@
     }
   }
 
+  .btn {
+    &.--add-job {
+      background-color: $fg-light-grey-blue-desat;
+      font-size: 24px;
+      color: $dark-blue-header;
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+    }
+  }
+
 }

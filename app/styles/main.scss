@@ -40,22 +40,26 @@ body {
     text-align: center;
     border: none;
     box-sizing: content-box;
+    border: 1px solid $dark-blue-header;
 
     &.--round {
       border-radius: 50%;
-      
-      
+      color: $border-light-grey;
     }
     
     &.--px16 {
       height: 16px;
       width: 16px;
-      border: 1px solid black;
+    }
+
+    &.--px36 {
+      height: 36px;
+      width: 36px;
     }
 
     &:hover {
-      color: $border-light-grey;
-      border: 1px solid $border-light-grey;
+      color: $border-light-grey !important;
+      border: 1px solid $border-light-grey !important;
     }
   }
 

@@ -4,6 +4,7 @@ import JobRow from './JobRow.jsx';
 import { fetchJobsURI } from '../../../server/endpoints.js';
 
 import './jobsTable.scss';
+import Button from '../button/button.jsx';
 
 
 /**
@@ -80,6 +81,7 @@ const JobsTable = ({ alert }) => {
               job={row}
               alert={alert}/>
           ))}
+          <Button classes="--round --px36 --add-job" /* onClick trigger add job modal */>✚</Button>
         </div>
     </>
   )
