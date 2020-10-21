@@ -4,10 +4,21 @@
 .table-wrapper {
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  height: 100vh;
   padding: 30px 10px;
+  background-color: $bg-light-grey-blue-desat;
 
   .job-row__wrapper {
     @include row-theme;
+    background-color: inherit;
+  }
+
+  .job-row__btn-wrapper {
+    display: flex;
+    position: relative;
+    top: 45px;
+    left: -72px;
   }
 
   .job-row {
@@ -15,6 +26,7 @@
     border: 1px solid $border-grey;
     border-top-left-radius: $border-radius-med;
     border-bottom-left-radius: $border-radius-med;
+    background-color: $fg-light-grey-blue-desat;
     @include box-shadow;
 
     &:hover {

@@ -110,13 +110,14 @@ const JobRow = ({ alert, job, setEditing, editing, idx, refresh }) => {
             }
           </div>
         </div>
+        {editing && (
+          <div className="job-row__btn-wrapper">
+            <Button classes="--modal --round --px16" onClick={() => fetchJob(() => setEditing(null))}>✘</Button>
+            <Button classes="--modal --round --px16" onClick={() => updateJob(() => setEditing(null))}>✔</Button>
+          </div>
+        )}
       </div>
-      {editing && (
-        <>
-          <Button classes="--modal" onClick={() => fetchJob(() => setEditing(null))}>X</Button>
-          <Button classes="--modal" onClick={() => updateJob(() => setEditing(null))}>SAVE</Button>
-        </>
-      )}
+
     </>
   )
 }
