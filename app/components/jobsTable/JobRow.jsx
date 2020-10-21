@@ -111,10 +111,13 @@ const JobRow = ({ alert, job, setEditing, editing, idx, refresh }) => {
           </div>
         </div>
         {editing && (
-          <div className="job-row__btn-wrapper">
-            <Button classes="--modal --round --px16" onClick={() => fetchJob(() => setEditing(null))}>✘</Button>
-            <Button classes="--modal --round --px16" onClick={() => updateJob(() => setEditing(null))}>✔</Button>
-          </div>
+          <>
+            <Button id="add-stage-btn" classes="--modal --round --px16" /* onClick trigger add stage modal */>✚</Button>
+            <div className="job-row__btn-wrapper" id="save-cancel-btn-group">
+              <Button id="cancel-btn" classes="--modal --round --px16" onClick={() => fetchJob(() => setEditing(null))}>✘</Button>
+              <Button id="save-btn" classes="--modal --round --px16" onClick={() => updateJob(() => setEditing(null))}>✔</Button>
+            </div>
+          </>
         )}
       </div>
 
