@@ -2,6 +2,10 @@
 
 JobSmart is an app for tracking and managing job applications from the initial reachout all the way to offer. It is designed to be flexible to the user's needs, allowing for job applications with differing stages and processes. This is a WIP and currently in the MVP stage
 
+![JobSmart screengrab](/docs/images/screen_2020-10-21__6.27.34PM.png "JobSmart screengrab")
+
+![JobSmart job editing screengrab](/docs/images/screen_editing_2020-10-21__6.28.12PM.png "JobSmart job editing")
+
 ## Technology
 
 JobSmart is built with React using React Hooks and SCSS. On the backend is a simple Mongodb database of documents representing job applications in progress. It is served by an Express Server deployed with NodeJS. 
