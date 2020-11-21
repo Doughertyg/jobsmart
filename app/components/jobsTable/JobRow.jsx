@@ -79,6 +79,13 @@ const JobRow = ({ alert, job, setEditing, editing, idx, refresh }) => {
     setJobState(newJob);
   }
 
+  function handleStageNew() {
+    const newJob = {...jobState};
+
+    newJob.stages.push(/* new stage */);
+    setJobState(newJob);
+  }
+
   function handleJobChange(val) {
     const newJob = {...jobState, ...val};
     setJobState(newJob);

@@ -50,6 +50,7 @@ import Button from '../button/button.jsx';
 const JobsTable = ({ alert }) => {
   const [ jobs, setJobs ] = useState([]);
   const [ editing, setEditing ] = useState(null);
+  const [ creating, setCreating ] = useState(false);
 
   function fetchJobsAndSetState() {
     axios.get(`/api/v1${fetchJobsURI}`)
@@ -69,7 +70,7 @@ const JobsTable = ({ alert }) => {
 
   return (
     <>
-      {editing && <div className="modal-bg" />}
+      {(editing || creating) && <div className="modal-bg" />}
         <div className="table-wrapper">
           {jobs.map((row, index) => (
             <JobRow
