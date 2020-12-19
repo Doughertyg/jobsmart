@@ -8,7 +8,9 @@ function HeaderBar(props) {
 
   return (
     <div className="header-bar">
-      JobSmart
+      <h1>
+        JobSmart
+      </h1>
     </div>
   )
 }

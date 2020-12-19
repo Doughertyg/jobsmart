@@ -7,7 +7,7 @@
   box-sizing: border-box;
   height: 100vh;
   padding: 30px 10px;
-  background-color: $bg-light-grey-blue-desat;
+  background-color: $bg-dark;
 
   .job-row__wrapper {
     @include row-theme;
@@ -23,10 +23,10 @@
 
   .job-row {
     margin: 10px 8px;
-    border: 1px solid $border-grey;
     border-top-left-radius: $border-radius-med;
     border-bottom-left-radius: $border-radius-med;
-    background-color: $fg-light-grey-blue-desat;
+    border-top: $border-brown;
+    background-color: $bg-dark-light;
     @include box-shadow;
 
     &:hover {
@@ -51,6 +51,7 @@
   .stage__wrapper, .stage__header {
     flex-direction: column;
     background-color: $base-light-green;
+    color: $font-dark-grey;
 
     * {
       background-color: inherit;
@@ -72,9 +73,9 @@
 
   }
 
-  @for $i from 1 to 10 {
-    .stage__wrapper:nth-child(#{$i}) {
-      filter: hue-rotate(#{$i * $hue-shift-factor}deg);
+  .stage__header {
+    * {
+      @include gradient-fill;
     }
   }
   
@@ -112,35 +113,23 @@
     @include wide-text-center;
     font-weight: 600;
     position: relative;
-    top: -18px;
+    top: -20px;
     border-top-left-radius: $border-radius-sm;
     border-top-right-radius: $border-radius-sm;
-    border: 1px solid $border-grey;
     border-bottom: none;
+    border-top: 1px solid $border-mid-grey;
   }
 
   .stage__header-sub {
-    margin-top: -34px;
+    margin-top: -38px;
     opacity: 0;
-
-    :first-child {
-      border-left: 1px solid $border-grey;
-    }
-
-    :last-child {
-      border-right: 1px solid $border-grey;
-    }
-
   }
 
   .stage__data {
     * {
-      border-left: 1px solid $border-grey;
+      @include gradient-fill;
+      border-right: 1px solid $bg-dark-light;
       height: $stage-cell-height;
-    }
-
-    :last-child {
-      border-right: 1px solid $border-grey;
     }
 
     :hover {
